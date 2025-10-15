@@ -32,7 +32,7 @@ func MakeHTTP(
 	if err := cfg.Unpack(&config); err != nil {
 		return outputs.Fail(err)
 	}
-	tlsConfig, err := tlscommon.LoadTLSConfig(config.TLS)
+	tlsConfig, err := tlscommon.LoadTLSConfig(config.TLS, logger)
 	if err != nil {
 		return outputs.Fail(err)
 	}

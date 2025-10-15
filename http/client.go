@@ -4,12 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/elastic/beats/v7/libbeat/common"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"time"
+
+	"github.com/elastic/beats/v7/libbeat/common"
 
 	"github.com/elastic/beats/v7/libbeat/beat"
 	"github.com/elastic/beats/v7/libbeat/outputs"
@@ -80,7 +80,7 @@ func NewClient(s ClientSettings) (*Client, error) {
 	var err error
 
 	dialer = transport.NetDialer(s.Timeout)
-	tlsDialer = transport.TLSDialer(dialer, s.TLS, s.Timeout)
+	tlsDialer = transport.TLSDialer(dialer, s.TLS, s.Timeout, logger)
 
 	if st := s.Observer; st != nil {
 		dialer = transport.StatsDialer(dialer, st)
@@ -326,7 +326,7 @@ func (conn *Connection) execHTTPRequest(req *http.Request, headers map[string]st
 		conn.connected = false
 		return status, nil, fmt.Errorf("%v", resp.Status)
 	}
-	obj, err := ioutil.ReadAll(resp.Body)
+	obj, err := io.ReadAll(resp.Body)
 	if err != nil {
 		conn.connected = false
 		return status, nil, err
