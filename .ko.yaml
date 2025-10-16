@@ -1,4 +1,5 @@
-defaultBaseImage: 980921728818.dkr.ecr.us-east-1.amazonaws.com/ci/golang:1.22-v1.2
+#defaultBaseImage: 980921728818.dkr.ecr.us-east-1.amazonaws.com/ci/golang:1.22-v1.2
+defaultBaseImage: golang:1.24.9
 defaultPlatforms:
   - linux/arm64
   - linux/amd64
